@@ -1,10 +1,15 @@
 package com.smart.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,6 +32,9 @@ public class User {
 
 	@Column(length = 1000)
 	private String about;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Contact> contacts = new ArrayList<>();
 
 	public User() {
 		super();
@@ -95,5 +103,14 @@ public class User {
 	public void setAbout(String about) {
 		this.about = about;
 	}
+
+	public List<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
+	}
+	
 
 }

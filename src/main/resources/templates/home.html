@@ -1,11 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
 <head>
 <meta charset="UTF-8" />
 <title>Home</title>
 </head>
 <body>
 
-	<h1>This is home page.</h1>
+	<section>
+		<h1>This is home page.</h1>
+		<h2>We are building a project.</h2>
+	</section>
 </body>
 </html>

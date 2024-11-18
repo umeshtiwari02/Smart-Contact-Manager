@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -28,8 +29,11 @@ public class User {
 	private String name;
 
 	@Column(unique = true)
+	@Email(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")
 	private String email;
 
+	@NotBlank(message = "Password must not be blank !!")
+	@Size(min = 8, max = 20, message = "Password must contain min 8 and max 20 character !!")
 	private String password;
 	private String role;
 	private boolean enabled;

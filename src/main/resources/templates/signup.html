@@ -54,8 +54,12 @@
 							<div class="mb-3">
 								<label for="email" class="form-label">Your Email</label> <input
 									name="email" type="email" class="form-control" id="email"
+									th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
 									aria-describedby="emailHelp" placeholder="Enter email here"
 									required th:value="${user.email}">
+									
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('email')}" th:text="${e}"></div>
 
 							</div>
 
@@ -64,8 +68,12 @@
 								<label for="password" class="form-label">Your Password</label> <input
 									name="password" type="password" class="form-control"
 									id="password" aria-describedby="emailHelp"
+									th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
 									th:value="${user.password}" placeholder="Enter password here"
 									required>
+									
+								<div class="invalid-feedback"
+									th:each="e : ${#fields.errors('password')}" th:text="${e}"></div>
 
 							</div>
 

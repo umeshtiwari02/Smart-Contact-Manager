@@ -12,19 +12,32 @@ public class HomeController {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@GetMapping("/home")
+	
+	// Home handler
+	
+	@GetMapping("/")
 	public String home(Model model) {
-		
+
 		model.addAttribute("title", "Home - Smart Contact Manager");
 		return "home";
 	}
+
+	// About handler
 	
 	@GetMapping("/about")
 	public String about(Model model) {
-		
+
 		model.addAttribute("title", "About - Smart Contact Manager");
 		return "about";
 	}
 	
+	// Sign Up Handler
+	
+	@GetMapping("/signup")
+	public String signup(Model model) {
+		model.addAttribute("title", "Register - Smart Contact Manager");
+		
+		return "signup";
+	}
+
 }

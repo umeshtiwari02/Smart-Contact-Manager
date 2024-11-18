@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.smart.dao.UserRepository;
 import com.smart.entities.User;
+import com.smart.helper.Messages;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
@@ -48,20 +51,35 @@ public class HomeController {
 
 	@PostMapping("/do_register")
 	public String registerUser(@ModelAttribute User user, @RequestParam(defaultValue = "false") boolean agreement,
-			Model model) {
+			Model model, HttpSession session) {
 
-		if (!agreement) {
-			System.out.println("You have not agreed the terms and conditions.");
+		try {
+			if (!agreement) {
+				System.out.println("You have not agreed the terms and conditions.");
+				throw new Exception("You have not agreed the terms and conditions.");
+			}
+
+			user.setRole("ROLE_USER");
+			user.setEnabled(true);
+			user.setImageUrl("default.png");
+
+			System.out.println("Agreement : " + agreement);
+			System.out.println("User : " + user);
+
+			this.userRepository.save(user);
+
+			model.addAttribute("user", new User());
+
+			session.setAttribute("message", new Messages("Successfully Registered !!! ", "alert-success"));
+			return "signup";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("user", user);
+			session.setAttribute("message", new Messages("Something went Wrong !! " + e.getMessage(), "alert-danger"));
+			return "signup";
 		}
-		
-		user.setRole("ROLE_USER");
-		user.setEnabled(true);
 
-		System.out.println("Agreement : " + agreement);
-		System.out.println("User : " + user);
-		
-		model.addAttribute("user", user);
-		return "signup";
 	}
 
 }

@@ -15,6 +15,17 @@
 
 					<div class="my-card mt-3">
 
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}" class="alert"
+							role="alert">
+							<p class="text-center" th:text="${session.message.content}"></p>
+
+							<!-- 
+								<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+							 -->
+						</div>
+
+
 						<div class="container text-center">
 							<img src="" width="100px;" th:src="@{/img/register.png}"
 								alt="Register" />
@@ -49,7 +60,8 @@
 								<label for="password" class="form-label">Your Password</label> <input
 									name="password" type="password" class="form-control"
 									id="password" aria-describedby="emailHelp"
-									placeholder="Enter password here" required>
+									th:value="${user.password}" placeholder="Enter password here"
+									required>
 
 							</div>
 

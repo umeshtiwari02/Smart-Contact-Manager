@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.smart.dao.UserRepository;
 import com.smart.entities.User;
@@ -13,9 +16,9 @@ public class HomeController {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	// Home handler
-	
+
 	@GetMapping("/")
 	public String home(Model model) {
 
@@ -24,20 +27,40 @@ public class HomeController {
 	}
 
 	// About handler
-	
+
 	@GetMapping("/about")
 	public String about(Model model) {
 
 		model.addAttribute("title", "About - Smart Contact Manager");
 		return "about";
 	}
-	
+
 	// Sign Up Handler
-	
+
 	@GetMapping("/signup")
 	public String signup(Model model) {
 		model.addAttribute("title", "Register - Smart Contact Manager");
 		model.addAttribute("user", new User());
+		return "signup";
+	}
+
+	// Handler for register user
+
+	@PostMapping("/do_register")
+	public String registerUser(@ModelAttribute User user, @RequestParam(defaultValue = "false") boolean agreement,
+			Model model) {
+
+		if (!agreement) {
+			System.out.println("You have not agreed the terms and conditions.");
+		}
+		
+		user.setRole("ROLE_USER");
+		user.setEnabled(true);
+
+		System.out.println("Agreement : " + agreement);
+		System.out.println("User : " + user);
+		
+		model.addAttribute("user", user);
 		return "signup";
 	}
 

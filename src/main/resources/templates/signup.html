@@ -16,45 +16,55 @@
 					<div class="my-card mt-3">
 
 						<div class="container text-center">
-							<img src="" width="100px;" th:src="@{/img/register.png}" alt="Register" />
+							<img src="" width="100px;" th:src="@{/img/register.png}"
+								alt="Register" />
 						</div>
 
 						<h1 class="text-center">Register Here</h1>
 
-						<form action="" th:action="@{/do_register}" method="post">
+						<form action="" th:action="@{/do_register}" method="post"
+							th:object="${user}">
 
 
 							<!-- Name field -->
 							<div class="mb-3">
 								<label for="name" class="form-label">Your Name</label> <input
-									type="text" class="form-control" id="name"
+									name="name" type="text" class="form-control" id="name"
 									aria-describedby="emailHelp" placeholder="Enter name here"
-									required>
+									required th:value="${user.name}">
 
 							</div>
 
 							<!-- Email field -->
 							<div class="mb-3">
 								<label for="email" class="form-label">Your Email</label> <input
-									type="email" class="form-control" id="email"
+									name="email" type="email" class="form-control" id="email"
 									aria-describedby="emailHelp" placeholder="Enter email here"
-									required>
+									required th:value="${user.email}">
 
 							</div>
 
 							<!-- Password field -->
 							<div class="mb-3">
 								<label for="password" class="form-label">Your Password</label> <input
-									type="password" class="form-control" id="password"
-									aria-describedby="emailHelp" placeholder="Enter password here"
-									required>
+									name="password" type="password" class="form-control"
+									id="password" aria-describedby="emailHelp"
+									placeholder="Enter password here" required>
 
 							</div>
 
 							<!-- User About field -->
 							<div class="mb-3">
-								<textarea placeholder="Enter about yourself" rows="10"
+								<textarea name="about" th:value="${user.about}"
+									placeholder="Enter about yourself" rows="10"
 									class="form-control"></textarea>
+							</div>
+
+							<!-- Terms and condition agreement -->
+							<div class="md-3 form-check">
+								<input type="checkbox" name="agreement" class="form-check-input"
+									id="agreement" /> <label for="agreement">Accept terms
+									and conditions</label>
 							</div>
 
 							<!-- Button field -->

@@ -1,11 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{normal/base::layout(~{::section})}">
 <head>
-	<meta charset="UTF-8" />
-	<title>User Dashboard</title>
+<meta charset="UTF-8" />
+<title th:text="${title}">Dashboard</title>
 </head>
 <body>
-	
-	<h1>Welcome to Normal User. This is your Dashboard.</h1>
+
+	<section>
+		<h1 class="text-center">User Dashboard</h1>
+		<h2>
+			Name : <span th:text="${user.name}"></span>
+		</h2>
+
+		<h2>
+			Email : <span th:text="${user.email}"></span>
+		</h2>
+
+	</section>
+
 </body>
 </html>

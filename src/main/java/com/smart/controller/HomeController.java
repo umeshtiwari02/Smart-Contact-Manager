@@ -1,7 +1,9 @@
 package com.smart.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,9 @@ import jakarta.validation.Valid;
 
 @Controller
 public class HomeController {
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -51,6 +56,7 @@ public class HomeController {
 
 	// Handler for register user
 
+	@Transactional
 	@PostMapping("/do_register")
 	public String registerUser(@Valid @ModelAttribute User user, BindingResult result,
 			@RequestParam(defaultValue = "false") boolean agreement, Model model, HttpSession session) {
@@ -70,6 +76,7 @@ public class HomeController {
 			user.setRole("ROLE_USER");
 			user.setEnabled(true);
 			user.setImageUrl("default.png");
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 			System.out.println("Agreement : " + agreement);
 			System.out.println("User : " + user);

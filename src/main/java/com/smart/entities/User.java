@@ -28,13 +28,13 @@ public class User {
 	@Size(min = 3, max = 25, message = "Min 3 and Max 25 characters are allowed !!")
 	private String name;
 
-	@Column(unique = true)
-	@Email(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")
+	@NotBlank(message = "Email must not be blank !!")
+	@Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
 	private String email;
 
 	@NotBlank(message = "Password must not be blank !!")
-	@Size(min = 8, max = 20, message = "Password must contain min 8 and max 20 character !!")
 	private String password;
+
 	private String role;
 	private boolean enabled;
 	private String imageUrl;

@@ -39,7 +39,15 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests(
 						registry -> registry.requestMatchers("/admin/**").hasRole("ADMIN").requestMatchers("/user/**")
 								.hasRole("USER").requestMatchers("/**").permitAll().anyRequest().authenticated())
-				.formLogin(login -> login.loginPage("/signin").permitAll());
+				.formLogin(login -> login.loginPage("/signin").loginProcessingUrl("/do_login")
+						.defaultSuccessUrl("/user/index").permitAll());
+		// Methods to Configure the behavior of Login page in Spring Security
+		// methods are :: login
+		// (1) .loginPage("/signin")
+		// (2) .loginProcessingUrl("/do_login")
+		// (3) .defaultSuccessUrl("/user/index")
+		// (4) .failureUrl("/login_fail")
+
 		return httpSecurity.build();
 	}
 

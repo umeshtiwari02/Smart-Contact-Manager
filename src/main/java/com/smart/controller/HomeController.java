@@ -96,5 +96,14 @@ public class HomeController {
 		}
 
 	}
+	
+	// Handler for  custom login 
+	
+	@GetMapping("/signin")
+	public String custonLogin(Model model)  {
+		
+		model.addAttribute("title", "Login - Smart Contact Manager");
+		return  "login";
+	}
 
 }

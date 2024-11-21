@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,7 +39,7 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests(
 						registry -> registry.requestMatchers("/admin/**").hasRole("ADMIN").requestMatchers("/user/**")
 								.hasRole("USER").requestMatchers("/**").permitAll().anyRequest().authenticated())
-				.formLogin(AbstractAuthenticationFilterConfigurer::permitAll);
+				.formLogin(login -> login.loginPage("/signin").permitAll());
 		return httpSecurity.build();
 	}
 

@@ -42,3 +42,61 @@ body {
 	margin-top: -80px;
 	text-align: right;
 }
+
+/* Side-Bar Style */
+@media only screen and (max-width: 600px) {
+	.sidebar {
+		display: none;
+		width: 60% !important;
+		background: white;
+		height: 100vh;
+		position: fixed;
+		padding-top: 20px;
+	}
+	.sidebar .crossBtn {
+		font-size: 25px !important;
+	}
+	.content {
+		margin-left: 0% !important;
+	}
+}
+
+.sidebar {
+	width: 18%;
+	background: white;
+	height: 100%;
+	position: fixed;
+	padding-top: 45px;
+}
+
+.sidebar a {
+	display: block;
+	width: 100%;
+	padding: 10px 20px;
+	text-decoration: none;
+	color: gray;
+}
+
+.sidebar a:hover {
+	background: #e2e2e2;
+}
+
+.sidebar .divider {
+	height: 1px;
+	width: 100%;
+	background: #e2e2e2;
+	margin-top: 10px;
+}
+
+.sidebar .crossBtn {
+	position: absolute;
+	top: 5px;
+	right: 35px;
+	font-size: 30px;
+	cursor: pointer;
+}
+
+/* Content Style */
+.content {
+	margin-left: 20%;
+}

@@ -22,8 +22,8 @@
 <title th:text="${title}">Base Page</title>
 </head>
 <body>
-	<!-- Navbar started -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	<!-- Nav-bar started -->
+	<nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-primary">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Smart Contact Manager</a>
 			<button class="navbar-toggler" type="button"
@@ -55,16 +55,17 @@
 
 
 	<!-- Side-Bar -->
-	<div class="sidebar">
+	<div class="sidebar mt-5">
 
 		<span onclick="toggleSidebar()" class="crossBtn"><i
-			class="fa-solid fa-xmark"></i></span> <a href="#" class="item"><i
-			class="fa-solid fa-house"></i> Home</a> <a href="#" class="item"><i
-			class="fa-solid fa-user"></i> Your Profile</a> <a href="#" class="item"><i
+			class="fa-solid fa-xmark"></i></span> <a href="#" th:href="@{/user/index}"
+			class="item"><i class="fa-solid fa-house"></i> Home</a> <a href="#"
+			class="item"><i class="fa-solid fa-user"></i> Your Profile</a> <a
+			href="#" th:href="@{/user/add-contact}" class="item"><i
 			class="fa-solid fa-pencil"></i> Add Contact</a> <a href="#" class="item"><i
 			class="fa-solid fa-id-card-clip"></i> View Contacts</a> <a href="#"
 			class="item"><i class="fa-solid fa-gear"></i> Settings</a> <a
-			href="#" class="item"><i
+			href="#" th:href="@{/logout}" class="item"><i
 			class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
 
 		<div class="divider"></div>
@@ -72,7 +73,7 @@
 	</div>
 
 	<!-- Content -->
-	<div class="content">
+	<div class="content mt-2">
 		<i onclick="toggleSidebar()" class="fa-solid fa-bars"></i>
 
 		<div th:replace="${content}"></div>

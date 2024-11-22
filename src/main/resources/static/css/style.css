@@ -67,6 +67,7 @@ body {
 	height: 100%;
 	position: fixed;
 	padding-top: 45px;
+	z-index: 1000;
 }
 
 .sidebar a {
@@ -90,13 +91,19 @@ body {
 
 .sidebar .crossBtn {
 	position: absolute;
-	top: 5px;
+	top: 8px;
 	right: 35px;
-	font-size: 30px;
+	font-size: 20px;
 	cursor: pointer;
 }
 
 /* Content Style */
 .content {
 	margin-left: 20%;
+	padding-top: 55px;
+	padding-left: 5px;
+}
+
+.input-group-text {
+	font-size: 25px;
 }

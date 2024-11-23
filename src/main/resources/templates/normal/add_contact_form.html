@@ -15,7 +15,7 @@
 					<div class="row">
 						<div class="col-md-10 offset-md-2">
 							<form action="#" th:object="${contact}"
-								enctype="multipartfile/form-data" method="post"
+								enctype="multipart/form-data" method="post"
 								th:action="@{/user/process-contact}" class="mt-2">
 
 								<!-- First Name -->
@@ -86,7 +86,7 @@
 
 								<!-- Contact Image -->
 								<div class="custom-file mt-3">
-									<input type="file" name="image" id="image" />
+									<input type="file" name="profileImage" />
 								</div>
 
 								<div class="container mt-3 text-center">

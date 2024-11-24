@@ -20,9 +20,8 @@
 							role="alert">
 							<p class="text-center" th:text="${session.message.content}"></p>
 
-							<!-- 
-								<th:block th:text="${#session.removeAttribute('message')}"></th:block>
-							 -->
+							<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+
 						</div>
 
 
@@ -35,7 +34,6 @@
 
 						<form novalidate action="" th:action="@{/do_register}"
 							method="post" th:object="${user}">
-
 
 							<!-- Name field -->
 							<div class="mb-3">
@@ -57,7 +55,7 @@
 									th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
 									aria-describedby="emailHelp" placeholder="Enter email here"
 									required th:value="${user.email}">
-									
+
 								<div class="invalid-feedback"
 									th:each="e : ${#fields.errors('email')}" th:text="${e}"></div>
 
@@ -71,7 +69,7 @@
 									th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
 									th:value="${user.password}" placeholder="Enter password here"
 									required>
-									
+
 								<div class="invalid-feedback"
 									th:each="e : ${#fields.errors('password')}" th:text="${e}"></div>
 
@@ -81,8 +79,7 @@
 							<div class="mb-3">
 								<textarea name="about" th:value="${user.about}"
 									placeholder="Enter about yourself" rows="10"
-									th:text="${user.about}"
-									class="form-control"></textarea>
+									th:text="${user.about}" class="form-control"></textarea>
 							</div>
 
 							<!-- Terms and condition agreement -->

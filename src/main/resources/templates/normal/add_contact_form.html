@@ -26,7 +26,7 @@
 										</div>
 									</div>
 
-									<input type="text" name="name" id="firstName"
+									<input required type="text" name="name" id="firstName"
 										placeholder="Enter your name" class="form-control" />
 								</div>
 
@@ -38,7 +38,7 @@
 										</div>
 									</div>
 
-									<input type="text" name="nickName" id="nickName"
+									<input required type="text" name="nickName" id="nickName"
 										placeholder="Enter your nickname" class="form-control" />
 								</div>
 
@@ -50,8 +50,9 @@
 										</div>
 									</div>
 
-									<input type="tel" name="phone" id="phone"
-										placeholder="Enter your phone number" class="form-control" />
+									<input required pattern="[0-9]{10,13}" type="tel" name="phone"
+										id="phone" placeholder="Enter your phone number"
+										class="form-control" />
 								</div>
 
 								<!-- Email Field -->
@@ -62,8 +63,9 @@
 										</div>
 									</div>
 
-									<input type="email" name="email" id="email"
-										placeholder="Enter your email" class="form-control" />
+									<input required pattern=".+@gmail.com" type="email"
+										name="email" id="email" placeholder="Enter your email"
+										class="form-control" />
 								</div>
 
 								<!-- Work Field -->
@@ -74,14 +76,14 @@
 										</div>
 									</div>
 
-									<input type="text" name="work" id="work"
+									<input required type="text" name="work" id="work"
 										placeholder="Enter your work" class="form-control" />
 								</div>
 
 								<!-- Contact Description -->
 								<div class="form-group mt-3">
-									<textarea name="description" id="description" rows="10"
-										class="form-control" placeholder="Enter your description"></textarea>
+									<textarea name="description" rows="10" class="form-control"
+										placeholder="Enter your description"></textarea>
 								</div>
 
 								<!-- Contact Image -->
@@ -99,6 +101,13 @@
 				</div>
 			</div>
 		</div>
+
+		<script
+			src="https://cdn.tiny.cloud/1/w04ko0e85t4bovuef4n4g6mpxo1ufqz8z87nnro4pmtvphbs/tinymce/7/tinymce.min.js"
+			referrerpolicy="origin"></script>
+		<script>
+			tinymce.init({selector:'textarea'});
+		</script>
 
 	</section>
 

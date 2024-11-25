@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{normal/base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}">Contact</title>
+</head>
+<body>
+
+	<section>
+
+		<div class="card m-3">
+			<div class="card-body">
+				<div class="container mt-2 text-center">
+
+					<img src=""
+						style="height: 200px; width: 200px; border-radius: 50%; object-fit: cover;"
+						th:src="@{'/img/'+${contact.image}}" alt="profile picture" />
+
+					<h2 class="mt-4"
+						th:text="${contact.name + ' (' + contact.nickName + ' )'}"></h2>
+
+					<hr />
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col" th:text="'SMCU'+${contact.cid}"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">Email</th>
+								<td th:text="${contact.email}"></td>
+							</tr>
+							<tr>
+								<th scope="row">Phone Number</th>
+								<td th:text="${contact.phone}"></td>
+							</tr>
+							<tr>
+								<th scope="row">Work</th>
+								<td th:text="${contact.work}"></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- Showing Description -->
+					<div class="description">
+
+						<th:block th:utext="${contact.description}"></th:block>
+					</div>
+
+					<div class="container">
+						<button class="btn btn-danger">Delete</button>
+						<button class="btn btn-success">Update</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

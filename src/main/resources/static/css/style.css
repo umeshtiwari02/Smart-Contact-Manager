@@ -107,3 +107,10 @@ body {
 .input-group-text {
 	font-size: 25px;
 }
+
+.my_profile {
+	height: 35px;
+	width: 35px;
+	object-fit: cover;
+	border-radius: 50%;
+}

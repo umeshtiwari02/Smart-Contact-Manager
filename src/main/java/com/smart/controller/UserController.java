@@ -6,14 +6,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -127,16 +130,24 @@ public class UserController {
 	}
 
 	// show contact handler
-	@GetMapping("/show-contacts")
-	public String showContact(Model model, Principal principal) {
+	@GetMapping("/show-contacts/{page}")
+	public String showContact(@PathVariable int page, Model model, Principal principal) {
 
 		String userName = principal.getName();
 
 		User user = this.userRepository.getUserByUserName(userName);
 
-		List<Contact> contacts = this.contactRepository.findContactsByUser(user.getId());
+		// Implementing Pagination here
+
+		// currentPage - page
+		// contact per-page - 5
+		Pageable pageable = PageRequest.of(page, 5);
+
+		Page<Contact> contacts = this.contactRepository.findContactsByUser(user.getId(), pageable);
 
 		model.addAttribute("contacts", contacts);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", contacts.getTotalPages());
 
 		model.addAttribute("title", "Show User Contacts");
 		return "normal/show_contacts";

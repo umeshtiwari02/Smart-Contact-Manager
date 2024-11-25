@@ -159,7 +159,7 @@ public class UserController {
 
 	// showing particular contact details
 	@GetMapping("/{cid}/contact")
-	public String showContactDetail(@PathVariable int cid, Model model) {
+	public String showContactDetail(@PathVariable int cid, Model model, Principal principal) {
 
 		System.out.println("CID  : " + cid);
 
@@ -167,9 +167,17 @@ public class UserController {
 
 		Contact contact = contactOptional.get();
 
-		model.addAttribute("contact", contact);
+		// Security for unauthorized user
+		String userName = principal.getName(); // it get current user-id(email)
 
-		model.addAttribute("title", "Contact Detail");
+		User user = this.userRepository.getUserByUserName(userName);
+
+		if (user.getId() == contact.getUser().getId()) {
+
+			model.addAttribute("title", contact.getName());
+			model.addAttribute("contact", contact);
+		}
+
 		return "normal/contact_detail";
 	}
 

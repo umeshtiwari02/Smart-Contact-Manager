@@ -9,7 +9,7 @@
 
 	<section>
 
-		<div class="card m-3">
+		<div class="card m-3" th:if="${contact}">
 			<div class="card-body">
 				<div class="container mt-2 text-center">
 
@@ -58,6 +58,13 @@
 
 				</div>
 			</div>
+		</div>
+
+		<div th:unless="${contact}" class="m-5">
+
+			<h2 class="text-center p-3 bg-danger text-white">You don't have permission to
+				access...</h2>
+
 		</div>
 	</section>
 

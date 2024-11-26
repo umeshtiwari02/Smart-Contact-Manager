@@ -18,6 +18,9 @@
 								enctype="multipart/form-data" method="post"
 								th:action="@{/user/process-update}" class="mt-2">
 
+								<!-- For Getting Id -->
+								<input type="hidden" th:value="${contact.cid}" name="cid" />
+
 								<!-- First Name -->
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -104,7 +107,7 @@
 								</div>
 
 								<div class="container mt-3 text-center">
-									<button class="btn btn-outline-primary">Save Contace</button>
+									<button class="btn btn-outline-primary">Save Contact</button>
 								</div>
 
 							</form>

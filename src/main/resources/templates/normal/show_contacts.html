@@ -34,16 +34,21 @@
 									<span th:text="${c.email}"></span>
 							</a></td>
 							<td th:text="${c.phone}"></td>
-							<td style="display: flex; gap: 8px;" class="mt-2">
-							<button th:onclick="|deleteContact(${c.cid})|"
-								class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-
-								<form method="post" action=""
-									th:action="@{'/user/update-contact/'+${c.cid}}">
-									<button class="btn btn-success btn-sm">
-										<i class="fa-solid fa-pen-to-square"></i>
+							<td>
+								<div class="container" style="display: flex; gap: 8px;">
+									<button th:onclick="|deleteContact(${c.cid})|"
+										class="btn btn-danger btn-sm">
+										<i class="fa-solid fa-trash"></i>
 									</button>
-								</form></td>
+
+									<form method="post" action=""
+										th:action="@{'/user/update-contact/'+${c.cid}}">
+										<button class="btn btn-success btn-sm">
+											<i class="fa-solid fa-pen-to-square"></i>
+										</button>
+									</form>
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>

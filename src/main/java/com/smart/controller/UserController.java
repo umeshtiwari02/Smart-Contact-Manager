@@ -84,6 +84,12 @@ public class UserController {
 	public String processContact(@ModelAttribute Contact contact, @RequestParam("profileImage") MultipartFile file,
 			Principal principal, HttpSession session) {
 
+		// Generate a unique value (e.g., time-stamp or UUID)
+		String uniqueValue = String.valueOf(System.currentTimeMillis()).substring(6);
+
+		// Create a unique image name
+		String uniqueImageName = uniqueValue + "_" + file.getOriginalFilename();
+
 		try {
 			String name = principal.getName();
 
@@ -99,11 +105,11 @@ public class UserController {
 
 				// upload file into the folder and update the file name to the contact
 
-				contact.setImage(file.getOriginalFilename());
+				contact.setImage(uniqueImageName);
 
 				File saveFile = new ClassPathResource("/static/img").getFile();
 
-				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + uniqueImageName);
 
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
@@ -241,6 +247,12 @@ public class UserController {
 	public String updateContact(@ModelAttribute Contact contact, @RequestParam("profileImage") MultipartFile file,
 			Model model, HttpSession session, Principal principal) {
 
+		// Generate a unique value (e.g., time-stamp or UUID)
+		String uniqueValue = String.valueOf(System.currentTimeMillis()).substring(6);
+
+		// Create a unique image name
+		String uniqueImageName = uniqueValue + "_" + file.getOriginalFilename();
+
 		try {
 			// old contact details
 			Contact oldContactDetail = this.contactRepository.findById(contact.getCid()).get();
@@ -248,19 +260,24 @@ public class UserController {
 			// uploading new profile image
 			if (!file.isEmpty()) {
 
-				// delete old photo
-				File deleteFile = new ClassPathResource("static/img").getFile();
+				System.out.println("Image : "+ oldContactDetail.getImage());
+				// if the image is not the default image then delete it
+				if (!oldContactDetail.getImage().equals("contact.png")) {
 
-				File file2 = new File(deleteFile, oldContactDetail.getImage());
+					// delete old photo
+					File deleteFile = new ClassPathResource("static/img").getFile();
 
-				file2.delete();
+					File file2 = new File(deleteFile, oldContactDetail.getImage());
+
+					file2.delete();
+				}
 
 				// update new photo
-				contact.setImage(file.getOriginalFilename());
+				contact.setImage(uniqueImageName);
 
 				File saveFile = new ClassPathResource("/static/img").getFile();
 
-				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + file.getOriginalFilename());
+				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + uniqueImageName);
 
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 

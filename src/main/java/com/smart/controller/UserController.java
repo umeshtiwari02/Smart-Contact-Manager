@@ -1,6 +1,7 @@
 package com.smart.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -179,6 +181,47 @@ public class UserController {
 		}
 
 		return "normal/contact_detail";
+	}
+
+	// delete contact handler
+	@Transactional
+	@GetMapping("/delete/{cid}")
+	public String deleteContact(@PathVariable int cid, Model model, Principal principal, HttpSession session) {
+
+		// Security for unauthorized user
+		Contact contact = this.contactRepository.findById(cid).get();
+		String userName = principal.getName(); // it get current user-id(email)
+		User user = this.userRepository.getUserByUserName(userName);
+
+		if (user.getId() == contact.getUser().getId()) {
+
+			Path imagePath = Paths.get("target/classes/static/img", contact.getImage());
+			System.out.println(imagePath);
+
+			if (!contact.getImage().equals("contact.png")) {
+				try {
+					// deleting the profile image
+					Files.deleteIfExists(imagePath);
+
+					System.out.println("Image Deleted Successfully!!");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			// deleting the contact
+			this.contactRepository.deleteContactById(cid);
+			// showing message
+			session.setAttribute("message", new Messages("Contact deleted successfully!!", "success"));
+
+		} else {
+			session.setAttribute("message",
+					new Messages("You don't have permission to delete this contact...", "danger"));
+		}
+
+		System.out.println("Deleted successfully");
+
+		return "redirect:/user/show-contacts/0";
 	}
 
 }

@@ -52,7 +52,8 @@
 					</div>
 
 					<div class="container">
-						<button class="btn btn-danger">Delete</button>
+						<button th:onclick="|deleteContact(${contact.cid})|"
+							class="btn btn-danger">Delete</button>
 						<button class="btn btn-success">Update</button>
 					</div>
 
@@ -62,8 +63,8 @@
 
 		<div th:unless="${contact}" class="m-5">
 
-			<h2 class="text-center p-3 bg-danger text-white">You don't have permission to
-				access...</h2>
+			<h2 class="text-center p-3 bg-danger text-white">You don't have
+				permission to access...</h2>
 
 		</div>
 	</section>

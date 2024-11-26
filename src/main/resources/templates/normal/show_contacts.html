@@ -28,18 +28,16 @@
 					<tbody>
 						<tr th:each="c : ${contacts}">
 							<th scope="row" th:text="'SMCU'+${c.cid}"></th>
-							<td><img src="" class="my_profile" th:src="@{'/img/'+${c.image}}" />
-								<span th:text="${c.name}"></span></td>
-							<td>
-								<a href="#" th:href="@{'/user/'+${c.cid}+'/contact'}">
+							<td><img src="" class="my_profile"
+								th:src="@{'/img/'+${c.image}}" /> <span th:text="${c.name}"></span></td>
+							<td><a href="#" th:href="@{'/user/'+${c.cid}+'/contact'}">
 									<span th:text="${c.email}"></span>
-								</a>
-							</td>
+							</a></td>
 							<td th:text="${c.phone}"></td>
-							<td><span class="btn btn-danger btn-sm"><i
-									class="fa-solid fa-trash"></i></span> <span
-								class="btn btn-success btn-sm"><i
-									class="fa-solid fa-pen-to-square"></i></span></td>
+							<td><a th:onclick="|deleteContact(${c.cid})|"
+								class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+								<a class="btn btn-success btn-sm"><i
+									class="fa-solid fa-pen-to-square"></i></a></td>
 						</tr>
 					</tbody>
 				</table>

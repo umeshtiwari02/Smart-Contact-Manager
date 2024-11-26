@@ -1,6 +1,5 @@
 package com.smart.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,10 +22,9 @@ public class Contact {
 	private String phone;
 	private String image;
 
-	@Column(length = 2000)
 	private String description;
 
-	@ManyToOne
+	@ManyToOne()
 	private User user;
 
 	public Contact() {

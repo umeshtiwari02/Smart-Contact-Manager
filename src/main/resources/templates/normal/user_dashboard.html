@@ -8,14 +8,23 @@
 <body>
 
 	<section>
-		<h1 class="text-center">User Dashboard</h1>
-		<h2>
-			Name : <span th:text="${user.name}"></span>
-		</h2>
+		<div class="container">
+			<div class="card mt-5">
+				<div class="card-body m-3">
+					<div class="container text-center mt-3">
+						<img src=""
+							style="height: 200px; width: 200px; border-radius: 50%; object-fit: cover;"
+							th:src="@{'/img/'+${user.imageUrl}}" alt="profile picture" />
+					</div>
 
-		<h2>
-			Email : <span th:text="${user.email}"></span>
-		</h2>
+					<h1 class="text-center mt-3 fst-italic fw-light text-secondary">Start
+						adding your contact on cloud...</h1>
+
+					<a class="btn btn-primary w-100 mt-4 text-uppercase" href=""
+						th:href="@{/user/add-contact}">Add New Contact</a>
+				</div>
+			</div>
+		</div>
 
 	</section>
 

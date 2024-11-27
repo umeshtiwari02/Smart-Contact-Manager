@@ -302,5 +302,13 @@ public class UserController {
 		return "redirect:/user/" + contact.getCid() + "/contact";
 
 	}
+	
+	// your profile handler
+	@GetMapping("/profile")
+	public String profileHandler(Model model) {
+		
+		model.addAttribute("title", "Profile Page");
+		return "normal/profile";
+	}
 
 }

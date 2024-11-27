@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -260,7 +261,7 @@ public class UserController {
 			// uploading new profile image
 			if (!file.isEmpty()) {
 
-				System.out.println("Image : "+ oldContactDetail.getImage());
+				System.out.println("Image : " + oldContactDetail.getImage());
 				// if the image is not the default image then delete it
 				if (!oldContactDetail.getImage().equals("contact.png")) {
 
@@ -302,13 +303,130 @@ public class UserController {
 		return "redirect:/user/" + contact.getCid() + "/contact";
 
 	}
-	
+
 	// your profile handler
 	@GetMapping("/profile")
 	public String profileHandler(Model model) {
-		
+
 		model.addAttribute("title", "Profile Page");
 		return "normal/profile";
+	}
+
+	// profile form handler
+	@PostMapping("/update-profile/{id}")
+	public String updateProfileForm(@PathVariable int id, Model model) {
+
+		model.addAttribute("title", "Update User");
+
+		User user = this.userRepository.findById(id).get();
+
+		model.addAttribute("user", user);
+
+		return "normal/profile_update_form";
+	}
+
+	// update contact handler
+	@PostMapping("/process-profile-update")
+	public String updateUserProfile(@ModelAttribute User newUser, @RequestParam("profileImage") MultipartFile file,
+			Model model, HttpSession session) {
+
+		// Generate a unique value (e.g., time-stamp or UUID)
+		String uniqueValue = String.valueOf(System.currentTimeMillis()).substring(7);
+
+		// Create a unique image name
+		String uniqueImageName = uniqueValue + "_u_" + file.getOriginalFilename();
+
+		try {
+			// old user details
+			User oldUser = this.userRepository.findById(newUser.getId()).get();
+
+			// uploading new profile image
+			if (!file.isEmpty()) {
+
+				// if the image is not the default image then delete it
+				if (!oldUser.getImageUrl().equals("default.png")) {
+
+					// delete old photo
+					File deleteFile = new ClassPathResource("static/img").getFile();
+
+					File file2 = new File(deleteFile, oldUser.getImageUrl());
+
+					file2.delete();
+				}
+
+				// update new photo
+				newUser.setImageUrl(uniqueImageName);
+
+				File saveFile = new ClassPathResource("/static/img").getFile();
+
+				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + uniqueImageName);
+
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+				System.out.println("Image is uploaded!!");
+			} else {
+				newUser.setImageUrl(oldUser.getImageUrl());
+			}
+
+			// User newUserDetail =
+			// this.userRepository.getUserByUserName(principal.getName());
+
+			this.userRepository.save(newUser);
+
+			session.setAttribute("message", new Messages("Your detail is updated successuflly!!", "success"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		model.addAttribute("newUser", newUser);
+
+		return "normal/profile";
+
+	}
+
+	// delete user handler
+	@Transactional
+	@GetMapping("/deleteUser/{id}")
+	public String deleteUser(@PathVariable int id, Model model, Principal principal, HttpSession session) {
+
+		// Get the current user
+		User user = this.userRepository.getUserByUserName(principal.getName());
+
+		// Delete the user's profile image
+		Path userImagePath = Paths.get("target/classes/static/img", user.getImageUrl());
+		if (!user.getImageUrl().equals("default.png")) {
+			try {
+				Files.delete(userImagePath);
+				System.out.println("User image deleted successfully!");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		// Fetch all contacts linked to the user
+		List<Contact> contacts = user.getContacts(); // Assuming `contacts` is a mapped field in `User`
+
+		for (Contact contact : contacts) {
+			// Delete each contact's image
+			Path contactImagePath = Paths.get("target/classes/static/img", contact.getImage());
+
+			if (!contact.getImage().equals("contact.png")) {
+				try {
+					Files.delete(contactImagePath);
+					System.out.println("Contact image deleted successfully for contact ID: " + contact.getCid());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// Delete the user and their contacts (assuming cascading is set up for
+		// `contacts` in `User`)
+		this.userRepository.delete(user);
+
+		System.out.println("User and contacts deleted successfully");
+
+		return "redirect:/signin";
 	}
 
 }

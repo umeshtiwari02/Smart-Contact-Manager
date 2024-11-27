@@ -47,6 +47,17 @@
 						</tbody>
 					</table>
 
+					<!-- Delete and Update Button -->
+					<div class="container m-2"
+						style="display: flex; justify-content: center; gap: 8px;">
+						<button th:onclick="|deleteUser(${user.id})|"
+							class="btn btn-danger">Delete</button>
+
+						<form method="post" action=""
+							th:action="@{'/user/update-profile/'+${user.id}}">
+							<button class="btn btn-success">Update</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

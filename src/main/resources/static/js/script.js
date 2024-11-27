@@ -31,3 +31,20 @@ function deleteContact(cid) {
 			}
 		});
 };
+
+function deleteUser(id) {
+	swal({
+		title: "Are you sure?",
+		text: "You want to delete!",
+		icon: "warning",
+		buttons: true,
+		dangerMode: true,
+	})
+		.then((willDelete) => {
+			if (willDelete) {
+				window.location = "/user/deleteUser/" + id;
+			} else {
+				swal("You are safe!");
+			}
+		});
+};

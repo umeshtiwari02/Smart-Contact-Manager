@@ -27,44 +27,45 @@
 
 
 				<!-- Table -->
-				<hr />
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">Id</th>
-							<th scope="col">Name</th>
-							<th scope="col">Email</th>
-							<th scope="col">Phone Number</th>
-							<th scope="col">Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="c : ${contacts}">
-							<th scope="row" th:text="'SMCU'+${c.cid}"></th>
-							<td><img src="" class="my_profile"
-								th:src="@{'/img/'+${c.image}}" /> <span th:text="${c.name}"></span></td>
-							<td><a href="#" th:href="@{'/user/'+${c.cid}+'/contact'}">
-									<span th:text="${c.email}"></span>
-							</a></td>
-							<td th:text="${c.phone}"></td>
-							<td>
-								<div class="container" style="display: flex; gap: 8px;">
-									<button th:onclick="|deleteContact(${c.cid})|"
-										class="btn btn-danger btn-sm">
-										<i class="fa-solid fa-trash"></i>
-									</button>
-
-									<form method="post" action=""
-										th:action="@{'/user/update-contact/'+${c.cid}}">
-										<button class="btn btn-success btn-sm">
-											<i class="fa-solid fa-pen-to-square"></i>
+				<div class="table-responsive">
+					<table class="table mt-3 table-hover">
+						<thead class="table-light">
+							<tr>
+								<th scope="col">Id</th>
+								<th scope="col">Name</th>
+								<th scope="col">Email</th>
+								<th scope="col">Phone Number</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="c : ${contacts}">
+								<th scope="row" th:text="'SMCU'+${c.cid}"></th>
+								<td><img src="" class="my_profile"
+									th:src="@{'/img/'+${c.image}}" /> <span th:text="${c.name}"></span></td>
+								<td><a href="#" th:href="@{'/user/'+${c.cid}+'/contact'}">
+										<span th:text="${c.email}"></span>
+								</a></td>
+								<td th:text="${c.phone}"></td>
+								<td>
+									<div class="container" style="display: flex; gap: 8px;">
+										<button th:onclick="|deleteContact(${c.cid})|"
+											class="btn btn-danger btn-sm">
+											<i class="fa-solid fa-trash"></i>
 										</button>
-									</form>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+
+										<form method="post" action=""
+											th:action="@{'/user/update-contact/'+${c.cid}}">
+											<button class="btn btn-success btn-sm">
+												<i class="fa-solid fa-pen-to-square"></i>
+											</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
 				<!-- Pagination Part -->
 				<nav aria-label="Page navigation example">
@@ -86,6 +87,14 @@
 
 			</div>
 		</div>
+		
+		<script>
+			$(document).ready(() => {
+				$(".item").removeClass("active");
+				$("#view-contacts").addClass("active");
+			});
+		</script>
+		
 	</section>
 
 </body>

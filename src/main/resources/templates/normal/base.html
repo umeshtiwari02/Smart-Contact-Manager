@@ -20,6 +20,10 @@
 <link rel="stylesheet" th:href="@{/css/style.css}" />
 
 <title th:text="${title}">Base Page</title>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 	<!-- Nav-bar started -->
@@ -58,15 +62,22 @@
 	<div class="sidebar mt-5">
 
 		<span onclick="toggleSidebar()" class="crossBtn"><i
-			class="fa-solid fa-xmark"></i></span> <a href="#" th:href="@{/user/index}"
-			class="item"><i class="fa-solid fa-house"></i> Home</a> <a href="#"
+			class="fa-solid fa-xmark"></i></span> 
+			<a id="home" href="#" 
+			th:href="@{/user/index}"
+			class="item"><i class="fa-solid fa-house"></i> Home</a> 
+			<a id="profile" href="#"
 			th:href="@{/user/profile}" class="item"><i
-			class="fa-solid fa-user"></i> Your Profile</a> <a href="#"
+			class="fa-solid fa-user"></i> Your Profile</a> 
+			<a id="add-contact" href="#"
 			th:href="@{/user/add-contact}" class="item"><i
-			class="fa-solid fa-pencil"></i> Add Contact</a> <a href="#"
+			class="fa-solid fa-pencil"></i> Add Contact</a> 
+			<a id="view-contacts" href="#"
 			th:href="@{/user/show-contacts/0}" class="item"><i
-			class="fa-solid fa-id-card-clip"></i> View Contacts</a> <a href="#"
-			class="item"><i class="fa-solid fa-gear"></i> Settings</a> <a
+			class="fa-solid fa-id-card-clip"></i> View Contacts</a> 
+			<a id="settings" href="#"
+			class="item"><i class="fa-solid fa-gear"></i> Settings</a> 
+			<a
 			href="#" th:href="@{/logout}" class="item"><i
 			class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
 
@@ -104,8 +115,6 @@
 		crossorigin="anonymous"></script>
 
 	<script th:src="@{/js/script.js}"></script>
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

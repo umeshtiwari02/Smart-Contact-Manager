@@ -128,3 +128,8 @@ body {
 	border: 1px solid gray;
 	display: none;
 }
+.active {
+	color: white !important;
+	background-color: #009688 !important;
+}
+

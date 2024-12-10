@@ -2,16 +2,23 @@ package com.smart.controller;
 
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.smart.services.EmailService;
+
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class ForgotController {
 
-	// generating 4 digits OTP
 	Random random = new Random(10000);
+
+	@Autowired
+	private EmailService emailService;
 
 	// email-id form handler for forgot password
 	@GetMapping("/forgot")
@@ -21,16 +28,30 @@ public class ForgotController {
 	}
 
 	@PostMapping("/send-otp")
-	public String sendOTP(@RequestParam String email) {
+	public String sendOTP(@RequestParam String email, HttpSession session) {
 
+		// generating 5 digits OTP
 		int otp = random.nextInt(99999);
-		
+
 		System.out.println("Email : " + email);
 		System.out.println("OTP : " + otp);
-		
+
 		// code for sending OTP to your email
 
-		return "verify_otp";
+		String subject = "OTP from Smart Contact Manager";
+		String message = "Your OTP is " + otp;
+		String to = email;
+
+		boolean flag = this.emailService.sendEmail(subject, message, to);
+
+		if (flag) {
+			return "verify_otp";
+		} else {
+			session.setAttribute("message", "Please check your email id!!");
+
+			return "forgot_email_form";
+		}
+
 	}
 
 }

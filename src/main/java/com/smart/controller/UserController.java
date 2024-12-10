@@ -428,5 +428,13 @@ public class UserController {
 
 		return "redirect:/signin";
 	}
+	
+	// open settings handler
+	@GetMapping("/settings")
+	public String settingHandler(Model model) {
+		
+		model.addAttribute("title", "Settings");
+		return "normal/settings";
+	}
 
 }

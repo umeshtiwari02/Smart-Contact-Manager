@@ -66,7 +66,8 @@ public class EmailService {
 			mimeMessage.setSubject(subject);
 
 			// Adding text to message
-			mimeMessage.setText(message);
+//			mimeMessage.setText(message);
+			mimeMessage.setContent(message, "text/html");
 
 			// send
 			// Step 3: Send the message using Transport class

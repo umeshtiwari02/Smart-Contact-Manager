@@ -39,12 +39,19 @@ public class ForgotController {
 		// code for sending OTP to your email
 
 		String subject = "OTP from Smart Contact Manager";
-		String message = "Your OTP is " + otp;
+		String message = ""
+		+ "<div>"
+		+ "<h2>"
+		+ "Your OTP is "
+		+ otp
+		+ "</h2>"
+		+ "</div>";
 		String to = email;
 
 		boolean flag = this.emailService.sendEmail(subject, message, to);
 
 		if (flag) {
+
 			return "verify_otp";
 		} else {
 			session.setAttribute("message", "Please check your email id!!");
